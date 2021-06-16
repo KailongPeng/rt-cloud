@@ -32,7 +32,7 @@ class ProjectServer:
         if not hasattr(args, 'subjectRemote') or args.subjectRemote is None:
             args.subjectRemote = False
         if not hasattr(args, 'port') or args.port is None:
-            args.port = 8888
+            args.port = 6666
         self.args = args
         self.params = StructDict(
             {'mainScript': args.mainScript,
@@ -113,7 +113,7 @@ if __name__ == "__main__":
                            help='subject feedback/response to remote service')
     argParser.add_argument('--remote', '-r', default=False, action='store_true',
                            help='user remote services for both data and subject interface')
-    argParser.add_argument('--port', default=8888, type=int,
+    argParser.add_argument('--port', default=6666, type=int,
                            help='Network port that the projectServer will listen for requests on')
     argParser.add_argument('--test', '-t', default=False, action='store_true',
                            help='start webServer in test mode, unsecure')
