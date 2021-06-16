@@ -32,7 +32,9 @@ fi
 # activate rtcloud conda env if needed
 if [ -z $CONDA_DEFAULT_ENV ] || [ $CONDA_DEFAULT_ENV != "rtcloud" ]; then
     source ~/.bashrc
-    conda activate rtcloud
+    # conda activate rtcloud
+    . /gpfs/milgram/apps/hpc.rhel7/software/Python/Anaconda3/etc/profile.d/conda.sh
+    conda activate /gpfs/milgram/project/turk-browne/kp578/conda_envs/rtSynth_rt
 fi
 
 export PYTHONPATH=./rtCommon/:$PYTHONPATH
