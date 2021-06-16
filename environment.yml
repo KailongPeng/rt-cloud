@@ -4,29 +4,34 @@ channels:
   - conda-forge
   - brainiak
 dependencies:
-  - numpy
-  - scipy
-  - pydicom
-  - toml
-  - ipython
-  - jupyter
-  - pytest
-  - flake8
-  - mypy
-  - pip
-  - tornado
-  - websocket-client
+  - awscli
   - bcrypt
-  - requests
-  - openssl
-  - nibabel
-  - wsaccel
-  - scikit-learn
-  - nilearn
   - brainiak
   - dcm2niix
+  - flake8
+  - indexed_gzip  # for efficient random access of gzipped files with Nibabel
+  - inflect
+  - ipython
+  - jupyter
+  - mypy
+  - nibabel
+  - nilearn
   - nodejs
+  - numpy
+  - openssl
+  - pip
+  - pydicom
+  - pytest
+  - python=3.7
+  - requests
   - rpyc
+  - scikit-learn
+  - scipy
+  - toml
+  - tornado
+  - websocket-client
+  - wsaccel
   - pip:
-    - watchdog
     - inotify
+    - pybids
+    - watchdog

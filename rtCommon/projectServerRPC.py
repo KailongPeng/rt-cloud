@@ -12,8 +12,9 @@ from rpyc.utils.helpers import classpartial
 from rtCommon.dataInterface import DataInterface
 from rtCommon.subjectInterface import SubjectInterface
 from rtCommon.bidsInterface import BidsInterface
+from rtCommon.exampleInterface import ExampleInterface
 from rtCommon.errors import StateError, RequestError
-from rtCommon.projectUtils import unpackDataMessage
+from rtCommon.projectUtils import unpackDataMessage, npToPy
 from rtCommon.wsRemoteService import encodeByteTypeArgs
 from rtCommon.webSocketHandlers import RequestHandler
 
@@ -28,6 +29,7 @@ class ProjectRPCService(rpyc.Service):
     exposed_SubjectInterface = None
     exposed_BidsInterface = None
     exposed_WebDisplayInterface = None
+    exposed_ExampleInterface = None
 
     def __init__(self, dataRemote=False, subjectRemote=False, webUI=None):
         """
@@ -50,9 +52,11 @@ class ProjectRPCService(rpyc.Service):
         ProjectRPCService.exposed_DataInterface = DataInterface(dataRemote=dataRemote,
                                                                 allowedDirs=allowedDirs,
                                                                 allowedFileTypes=allowedFileTypes)
-        ProjectRPCService.exposed_BidsInterface = BidsInterface(dataRemote=dataRemote)
+        ProjectRPCService.exposed_BidsInterface = BidsInterface(dataRemote=dataRemote,
+                                                                allowedDirs=allowedDirs)
         ProjectRPCService.exposed_SubjectInterface = SubjectInterface(subjectRemote=subjectRemote)
         ProjectRPCService.exposed_WebDisplayInterface = webUI
+        ProjectRPCService.exposed_ExampleInterface = ExampleInterface(dataRemote=dataRemote)
 
     def exposed_isDataRemote(self):
         return self.dataRemote
@@ -73,6 +77,8 @@ class ProjectRPCService(rpyc.Service):
             ProjectRPCService.exposed_DataInterface.registerCommFunction(commFunction)
         if ProjectRPCService.exposed_BidsInterface is not None:
             ProjectRPCService.exposed_BidsInterface.registerCommFunction(commFunction)
+        if ProjectRPCService.exposed_ExampleInterface is not None:
+            ProjectRPCService.exposed_ExampleInterface.registerCommFunction(commFunction)
 
     @staticmethod
     def registerSubjectCommFunction(commFunction):
@@ -94,7 +100,7 @@ class ProjectRPCService(rpyc.Service):
 def startRPCThread(rpcService, hostname=None, port=12345):
     """
     This function starts the Project RPC server for communication between the projectServer
-        and the experiment script. 
+        and the experiment script.
         IT DOES NOT RETURN.
     """
     safe_attrs = rpyc.core.protocol.DEFAULT_CONFIG.get('safe_attrs')
@@ -207,7 +213,9 @@ class RPCHandlers:
         if cmd.get('cmd') == 'rpc':
             # if cmd is rpc, check and encode any byte args as base64
             cmd = encodeByteTypeArgs(cmd)
-            # TODO - also encode numpy ints and floats as python ints and floats
+            # Convert numpy arguments to native python types
+            cmd['args'] = npToPy(cmd.get('args', ()))
+            cmd['kwargs'] = npToPy(cmd.get('kwargs', {}))
         while incomplete:
             response = handler.doRequest(cmd, timeout)
             if response.get('status') != 200:

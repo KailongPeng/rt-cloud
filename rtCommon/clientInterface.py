@@ -1,10 +1,10 @@
 """
-This module will be imported by the experiment script (i.e. client) running in the cloud and 
+This module will be imported by the experiment script (i.e. client) running in the cloud and
 provide the interfaces for all functionality provided to the client by the rt-cloud
 projectServer.
 
 The client script instantiates a clientInterface object. It will automatically connect
-to the projectServer running on the localhost (i.e. same host as the client). If a 
+to the projectServer running on the localhost (i.e. same host as the client). If a
 connection is established the interfaces listed below will be stubs that forward requests
 to remote servers that will handle the requsts. If the connection fails (i.e. there is no
 projectServer running), then local versions of the services will be instantiated, for example
@@ -21,12 +21,13 @@ from rtCommon.dataInterface import DataInterface
 from rtCommon.subjectInterface import SubjectInterface
 from rtCommon.webDisplayInterface import WebDisplayInterface
 from rtCommon.bidsInterface import BidsInterface
+from rtCommon.exampleInterface import ExampleInterface
 from rtCommon.errors import RequestError
 
 
 class ClientInterface:
     """
-    This class provides the API that an experiment script can use to communicate with the 
+    This class provides the API that an experiment script can use to communicate with the
     project server. It provides both a DataInterface for reading or writing files, and a
     SubjectInterface for sending/receiving feedback and response to the subject in the MRI scanner.
     """
@@ -38,7 +39,7 @@ class ClientInterface:
         try:
             safe_attrs = rpyc.core.protocol.DEFAULT_CONFIG.get('safe_attrs')
             safe_attrs.add('__format__')
-            rpcConn = rpyc.connect('localhost', 12345, 
+            rpcConn = rpyc.connect('localhost', 12345,
                                    config={
                                             "allow_public_attrs": True,
                                             "safe_attrs": safe_attrs,
@@ -50,9 +51,10 @@ class ClientInterface:
                                             # "allow_all_attrs": True,
                                            })
             # Need to provide an override class of DataInstance to return data from getImage
-            self.dataInterface = DataInterfaceOverrides(rpcConn.root.DataInterface)
-            self.subjInterface = rpcConn.root.SubjectInterface
-            self.bidsInterface = rpcConn.root.BidsInterface
+            self.dataInterface = WrapRpycObject(rpcConn.root.DataInterface)
+            self.subjInterface = WrapRpycObject(rpcConn.root.SubjectInterface)
+            self.bidsInterface = WrapRpycObject(rpcConn.root.BidsInterface)
+            self.exampleInterface = WrapRpycObject(rpcConn.root.ExampleInterface)
             # WebDisplay is always run within the projectServer (i.e. not a remote service)
             self.webInterface = rpcConn.root.WebDisplayInterface
             self.rpcConn = rpcConn
@@ -67,7 +69,8 @@ class ClientInterface:
                 # These will be run in the same process as the experiment script
                 self.dataInterface = DataInterface(dataRemote=False, allowedDirs=['*'], allowedFileTypes=['*'])
                 self.subjInterface = SubjectInterface(subjectRemote=False)
-                self.bidsInterface = BidsInterface(dataRemote=False)
+                self.bidsInterface = BidsInterface(dataRemote=False, allowedDirs = ['*'])
+                self.exampleInterface = ExampleInterface(dataRemote=False)
                 # Without a webServer (projectServer) the webInterface won't be able to do
                 #   anything. Create a stub instance here with ioLoopInst=None so that calls
                 #   to it won't thow exceptions.
@@ -95,32 +98,27 @@ class ClientInterface:
         else:
             return False
 
-class DataInterfaceOverrides(object):
-    """Override the getImageData function of DataInterface
-       to return the actual data rather than an RPC reference
+class WrapRpycObject(object):
     """
-
-    def __init__(self, remoteDataInterface):
-        self.remote = remoteDataInterface
+    Rpyc commands return a rpyc.core.netref object to as a reference to the remote object.
+    This class wraps all calls to the remote in order to dereference the rpyc.core.netref
+    and return the actual object using rpyc.classic.obtain(ref)
+    """
+    def __init__(self, remoteInterface):
+        self.remote = remoteInterface
 
     def __getattribute__(self, name):
-        """
-        If this override class implements a function, then return it.
-        Otherwise return the remoteInstance verion of the function.
-        Note: __getattribute__ is called for every reference whereas
-            __getattr__ is only called for missing references
-        """
-        try:
-            attr = object.__getattribute__(self, name)
-        except AttributeError:
-            return getattr(self.remote, name)
-        return attr
+        remote = object.__getattribute__(self, 'remote')
+        attr = getattr(remote, name)
+        if hasattr(attr, '__call__'):
+            def newfunc(*args, **kwargs):
+                ref = attr(*args, **kwargs)
+                result = rpyc.classic.obtain(ref)
+                return result
+            return newfunc
+        else:
+            return attr
 
-    # Override getImageData to return by value rather than by reference
-    def getImageData(self, streamId: int, imageIndex: int=None, timeout: int=5):
-        ref = self.remote.getImageData(streamId, imageIndex, timeout)
-        val = rpyc.classic.obtain(ref)
-        return val
 
     # TODO - make a more efficient getFile and putFile
     # def getFile():
