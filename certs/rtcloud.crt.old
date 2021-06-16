@@ -1,0 +1,74 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, ST=New Jersey, L=Princeton, O=Princeton University, OU=PNI, CN=rtcloud.princeton.edu
+        Validity
+            Not Before: Jan  1 12:00:00 2019 GMT
+            Not After : Jan  1 12:00:00 2024 GMT
+        Subject: C=US, ST=New Jersey, L=Princeton, O=Princeton University, OU=PNI, CN=rtcloud.princeton.edu
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:e0:25:62:35:8d:be:6e:e7:ee:b6:57:5a:97:23:
+                    14:14:e9:84:89:84:0a:0e:62:d3:60:13:98:c2:48:
+                    9d:9a:5e:07:a9:e3:53:01:2a:d8:b2:10:52:20:3e:
+                    93:af:80:df:75:8d:85:dc:ac:44:09:f5:72:a9:f5:
+                    1f:bb:d7:11:77:54:2e:07:7e:b8:60:7e:57:27:47:
+                    82:aa:53:6b:cc:cd:81:e2:5e:c9:e0:c3:16:97:cd:
+                    7a:40:4d:ec:08:a2:2e:c1:86:eb:a7:08:3b:2b:3a:
+                    2d:9b:78:c7:4d:fb:33:e7:cb:92:74:f2:91:61:b1:
+                    0e:55:2b:28:48:ba:65:60:4e:1e:85:7d:48:1f:b3:
+                    20:3b:d7:7f:32:0c:f5:2f:37:01:99:63:3e:d0:74:
+                    88:08:ea:7a:41:ca:f2:f3:6d:3e:3d:19:e9:f1:ac:
+                    1e:c0:4e:62:12:f2:c9:1f:ae:f2:58:fe:dc:88:22:
+                    34:4c:cc:2c:a6:67:63:98:21:3f:b4:b5:df:67:53:
+                    53:1b:4f:0c:0b:16:e3:e5:0c:8e:85:71:f5:7e:f3:
+                    61:4e:08:7e:ae:07:85:e8:11:48:d2:6f:0c:78:ee:
+                    12:ae:27:c5:e1:e2:3f:2a:ab:1d:cc:92:c5:68:bd:
+                    47:66:7a:a9:53:83:90:f7:22:b0:5d:ed:09:bb:74:
+                    a9:21
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Alternative Name: 
+                DNS:princeton.edu, DNS:localhost, DNS:localhost, IP Address:172.29.189.23
+    Signature Algorithm: sha256WithRSAEncryption
+         7f:c1:83:7c:0d:8f:8b:e0:10:e5:66:fe:a5:77:83:c3:bc:64:
+         e4:d2:98:c0:9d:da:51:de:2c:b4:26:db:71:f3:c0:c9:d0:f3:
+         e7:d5:5c:05:16:a4:d4:6c:ea:4e:cc:4a:6e:6d:a8:c7:8e:eb:
+         1d:ac:a8:bb:ac:d6:ea:a7:c6:21:a8:61:9f:ed:42:a2:3b:e4:
+         32:fe:a2:0f:35:38:83:42:8f:62:d9:3f:1e:79:17:1e:4a:78:
+         c4:dd:05:f7:89:19:70:38:e0:1c:5f:26:d9:90:88:43:79:8b:
+         a8:97:39:fe:8e:78:cd:05:76:1e:aa:1d:b7:aa:d0:f4:19:7b:
+         f8:ec:78:12:b0:cd:3d:c8:8d:22:ca:e0:54:3e:8c:86:ab:d1:
+         07:35:7b:df:37:6d:3f:8e:0e:9d:23:90:92:36:4a:f3:e1:f3:
+         1e:65:6d:47:24:b1:6b:35:ef:ed:92:c7:b3:b5:6b:32:65:b5:
+         ab:0e:19:30:01:65:16:26:61:57:e5:b7:94:3d:99:a3:16:c5:
+         12:fd:67:1b:e7:3f:c0:9d:78:7a:1f:88:1d:f7:a5:73:c4:0c:
+         6b:6a:49:95:88:f3:ba:08:3a:32:bf:ea:5d:b0:db:50:02:97:
+         f5:f6:1d:2a:c4:4a:13:a8:2e:40:37:fd:60:44:b6:7d:8f:34:
+         bf:a8:f3:90
+-----BEGIN CERTIFICATE-----
+MIIDuzCCAqOgAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgzELMAkGA1UEBhMCVVMx
+EzARBgNVBAgMCk5ldyBKZXJzZXkxEjAQBgNVBAcMCVByaW5jZXRvbjEdMBsGA1UE
+CgwUUHJpbmNldG9uIFVuaXZlcnNpdHkxDDAKBgNVBAsMA1BOSTEeMBwGA1UEAwwV
+cnRjbG91ZC5wcmluY2V0b24uZWR1MB4XDTE5MDEwMTEyMDAwMFoXDTI0MDEwMTEy
+MDAwMFowgYMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApOZXcgSmVyc2V5MRIwEAYD
+VQQHDAlQcmluY2V0b24xHTAbBgNVBAoMFFByaW5jZXRvbiBVbml2ZXJzaXR5MQww
+CgYDVQQLDANQTkkxHjAcBgNVBAMMFXJ0Y2xvdWQucHJpbmNldG9uLmVkdTCCASIw
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOAlYjWNvm7n7rZXWpcjFBTphImE
+Cg5i02ATmMJInZpeB6njUwEq2LIQUiA+k6+A33WNhdysRAn1cqn1H7vXEXdULgd+
+uGB+VydHgqpTa8zNgeJeyeDDFpfNekBN7AiiLsGG66cIOys6LZt4x037M+fLknTy
+kWGxDlUrKEi6ZWBOHoV9SB+zIDvXfzIM9S83AZljPtB0iAjqekHK8vNtPj0Z6fGs
+HsBOYhLyyR+u8lj+3IgiNEzMLKZnY5ghP7S132dTUxtPDAsW4+UMjoVx9X7zYU4I
+fq4HhegRSNJvDHjuEq4nxeHiPyqrHcySxWi9R2Z6qVODkPcisF3tCbt0qSECAwEA
+AaM4MDYwNAYDVR0RBC0wK4INcHJpbmNldG9uLmVkdYIJbG9jYWxob3N0gglsb2Nh
+bGhvc3SHBKwdvRcwDQYJKoZIhvcNAQELBQADggEBAH/Bg3wNj4vgEOVm/qV3g8O8
+ZOTSmMCd2lHeLLQm23HzwMnQ8+fVXAUWpNRs6k7MSm5tqMeO6x2sqLus1uqnxiGo
+YZ/tQqI75DL+og81OINCj2LZPx55Fx5KeMTdBfeJGXA44BxfJtmQiEN5i6iXOf6O
+eM0Fdh6qHbeq0PQZe/jseBKwzT3IjSLK4FQ+jIar0Qc1e983bT+ODp0jkJI2SvPh
+8x5lbUcksWs17+2Sx7O1azJltasOGTABZRYmYVflt5Q9maMWxRL9ZxvnP8CdeHof
+iB33pXPEDGtqSZWI87oIOjK/6l2w21ACl/X2HSrEShOoLkA3/WBEtn2PNL+o85A=
+-----END CERTIFICATE-----

@@ -1,4 +1,4 @@
-name: rtcloud
+name: rtSynth_rt
 channels:
   - defaults
   - conda-forge
