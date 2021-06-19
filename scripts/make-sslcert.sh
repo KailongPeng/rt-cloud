@@ -3,7 +3,7 @@
 while test $# -gt 0
 do
   case "$1" in
-    -ip) IP=$2
+    -ip) IP=$2 ; IP2=$3 ; IP3=$4 ; IP4=$5
       ;;
     -url) URL=$2
       ;;
@@ -72,6 +72,9 @@ DNS.1 = princeton.edu
 DNS.2 = localhost
 DNS.3 = $URL
 IP.1 = $IP
+IP.2 = $IP2
+IP.3 = $IP3
+IP.4 = $IP4
 
 [req_distinguished_name]
 C  = "US"
