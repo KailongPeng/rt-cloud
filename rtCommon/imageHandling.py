@@ -285,7 +285,7 @@ def convertDicomFileToNifti(dicomFilename, niftiFilename):
     if outName.endswith('.nii'):
         outName = os.path.splitext(outName)[0]  # remove extention
     cmd = [dcm2niiCmd, '-s', 'y', '-b', 'n', '-o', outPath, '-f', outName, dicomFilename]
-    subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
+    subprocess.run(cmd, shell=False, stdout=subprocess.DEVNULL)
 
 def niftiToMem(niftiImg):
     '''
