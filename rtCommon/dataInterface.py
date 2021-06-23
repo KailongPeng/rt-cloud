@@ -236,7 +236,7 @@ class DataInterface(RemoteableExtensible):
 
         self.fileWatchLock.acquire()
         try:
-            foundFilename = self.fileWatcher.waitForFile(filename, timeout=timeout, timeCheckIncrement=0.5)
+            foundFilename = self.fileWatcher.waitForFile(filename, timeout=timeout, timeCheckIncrement=0.2)
         finally:
             self.fileWatchLock.release()
         if foundFilename is None:
